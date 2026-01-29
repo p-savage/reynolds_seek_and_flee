@@ -204,7 +204,7 @@ This determines the distance needed to complete **linear deceleration** for a gi
     )
 ```
 You may have noticed that the above `_apply_steering()` method made no use of `slowing_distance` at all. That's because `slowing_distance` is only crucial for **arrival behavior**. You could still have a Reynolds-based movement system without it, but the behavior has no way of decelerating. So it appears to be entirely frictionless. If you want the behavior to be recognizably *seeking* or *fleeing*, you need to be able to slow it down.\
-Slowing it down to a natural-looking stop requires taking into account the `effective_max_speed` at which a **Seeker** may be moving and the `effective_max_force` that may be applied the **Seeker's** velocity on any single frame.
+Slowing it down to a natural-looking stop requires taking into account the `effective_max_speed` at which a **Seeker** may be moving and the `effective_max_force` that may be applied the to **Seeker's** velocity on any single frame.
 ```python
     response_time = effective_mass / modifiers["responsiveness"]
     effective_max_force = (
@@ -218,7 +218,7 @@ This is the core of what the sliders are affecting. And it is where I will need 
 
 For a **Seeker** to slow in a natural-looking manner, the **Seeker's** inertia, relative to its `effective_mass`, must be accounted for. The amount of time a **Seeker** takes to overcome its mass is inversely affected by `responsiveness`. A larger `responsiveness` value means `effective_mass` is overcome more quickly. This gives a lower `response_time` for this particular **Seeker**. *Each `response_time` value will vary across the three **Seekers** according to their respective masses*.
 
-`effective_max_force` does not vary. It is the maximum allowed change in velocity in any single frame. It can be directly scaled by `max_force`. Think of this as a per-frame limitation imposed on the **Seekers** by their world.
+`effective_max_force` does not vary between the **Seekers**. It is the maximum allowed change in velocity in any single frame. It can be directly scaled by `max_force`. Think of this as a per-frame limitation imposed on the **Seekers** by their world.
 
 *"I don't care how sluggish or nimble each of you may be. **No one** changes their velocity more than **this value** on this frame."*
 
@@ -231,7 +231,7 @@ If you stuck with me, you now have all the necessary context to answer a questio
 
 But to package it all up in one place and connect us back to "Reynolds-movement" as the motivating concept for this project, I will run through each slider once more and tell you...
 
-# What's this thing do?... (in the vocabulary of Reynolds)
+# What does this thing do?... (in the vocabulary of Reynolds)
 ## **max_speed - 1.0 (default)**
 Moving this slider to a new value has the effect of multiplying the max_speed attribute of each **Seeker**. Since **Seekers** start with the same max_speed and the scalar is applied consistently, all **Seekers** have the potential to reach the same max_speed, if given enough time. \
 ***1.0 --> 1.5*** \
