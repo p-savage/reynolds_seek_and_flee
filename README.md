@@ -204,7 +204,7 @@ This determines the distance needed to complete **linear deceleration** for a gi
     )
 ```
 You may have noticed that the above `_apply_steering()` method made no use of `slowing_distance` at all. That's because `slowing_distance` is only crucial for **arrival behavior**. You could still have a Reynolds-based movement system without it, but the behavior has no way of decelerating. So it appears to be entirely frictionless. If you want the behavior to be recognizably *seeking* or *fleeing*, you need to be able to slow it down.\
-Slowing it down to a natural-looking stop requires taking into account the `effective_max_speed` at which a **Seeker** may be moving and the `effective_max_force` that may be applied the to **Seeker's** velocity on any single frame.
+Slowing it down to a natural-looking stop requires taking into account the `effective_max_speed` at which a **Seeker** may be moving and the `effective_max_force` that may be applied to the **Seeker's** velocity on any single frame.
 ```python
     response_time = effective_mass / modifiers["responsiveness"]
     effective_max_force = (
